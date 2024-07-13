@@ -9,7 +9,7 @@ Find your assigned Timbu Shop design and do a pixel perfect design implementatio
 pixel perfect implementation of the picked Timbu shop design.
 Proper UI state management and handle errors properly.
 
-
+- [A link to get the hng_task3_app build apk](https://drive.google.com/file/d/1bupwLtvN7o9wPXiyWE59w0ucJlMz6OZ-/view?usp=sharing)
 
 ## Screenshot.
 ![2024-07-13 19-03-21 High Res Screenshot](https://github.com/user-attachments/assets/b6bdb56e-2a8e-431b-9b35-d767b173a60b)
