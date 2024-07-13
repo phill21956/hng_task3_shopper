@@ -1,16 +1,19 @@
 # hng_task3_shopper
 
-A new Flutter project.
 
-## Getting Started
+## Task:
+Pixel Perfect Implementation of Timbu Shop Designs from designers.
+## Objectives: 
+Find your assigned Timbu Shop design and do a pixel perfect design implementation of that design App on your app that implemented the Timbu API.
+## Requirements:
+pixel perfect implementation of the picked Timbu shop design.
+Proper UI state management and handle errors properly.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshot.
+![2024-07-13 19-03-21 High Res Screenshot](https://github.com/user-attachments/assets/b6bdb56e-2a8e-431b-9b35-d767b173a60b)
+![2024-07-13 19-03-28 High Res Screenshot](https://github.com/user-attachments/assets/1f3b2554-9094-49ff-9866-e24ccf832e75)
+![2024-07-13 19-03-04 High Res Screenshot](https://github.com/user-attachments/assets/0168c460-9dc6-4581-8211-edfe07e1adf3)
+![2024-07-13 19-01-05 High Res Screenshot](https://github.com/user-attachments/assets/736a2a51-551a-4033-976c-718d3f98c842)
+![2024-07-13 19-03-14 High Res Screenshot](https://github.com/user-attachments/assets/4861a852-5798-49b7-89bc-a22ad8fc7552)
