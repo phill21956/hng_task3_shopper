@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3_shopper/utils/colors.dart';
+import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
+import 'package:hng_task3_shopper/views/product_page/components/home_banner_widget.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -31,61 +32,25 @@ class ProductPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    height: 232,
-                    width: 380,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey,
-                      image: const DecorationImage(
-                          image: AssetImage('assets/banner.png'),
-                          fit: BoxFit.cover),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Premium Sound,\nPremium Savings',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20),
-                            ),
-                            Text(
-                              'Limited offer, hope on and get yours now',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 13),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              const HomeBannerWidget(),
               const SizedBox(height: 20),
               const Text(
                 'Tech Gadget',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-              const CarouselBuilderWidget(),
+              CarouselBuilderWidget(productItemModel: techGadgetList),
               const SizedBox(height: 20),
               const Text(
                 "Men’s Fashion",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-              const CarouselBuilderWidget(),
+              CarouselBuilderWidget(productItemModel: menFashionList),
               const SizedBox(height: 20),
               const Text(
                 "Women’s Fashion",
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
-              const CarouselBuilderWidget(),
+              CarouselBuilderWidget(productItemModel: womenFashionList),
             ],
           ),
         ),

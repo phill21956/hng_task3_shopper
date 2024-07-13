@@ -117,23 +117,25 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              SizedBox(
-                width: 306,
-                height: 44,
-                child: ElevatedButton(
-                  onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => PaymentPage(),
-                              ));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.circular(5)),
-                      backgroundColor: colorsClass.reddishColor),
-                  child: const Text(
-                    'Go to Payment',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w500),
+              Center(
+                child: SizedBox(
+                  width: 306,
+                  height: 44,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => PaymentPage(),
+                      ));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        shape: BeveledRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        backgroundColor: colorsClass.reddishColor),
+                    child: const Text(
+                      'Go to Payment',
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
                   ),
                 ),
               )

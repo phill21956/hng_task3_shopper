@@ -1,19 +1,42 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/product_page/components/product_item_widget.dart';
 
-class CarouselBuilderWidget extends StatefulWidget {
-  const CarouselBuilderWidget({super.key});
+List<ProductItemModel> cartItems = [];
 
+class CarouselBuilderWidget extends StatefulWidget {
+  const CarouselBuilderWidget({super.key, required this.productItemModel});
+  final List<ProductItemModel> productItemModel;
   @override
   State<CarouselBuilderWidget> createState() => _CarouselBuilderWidgetState();
 }
 
 class _CarouselBuilderWidgetState extends State<CarouselBuilderWidget> {
   int _current = 0;
-
   final CarouselController _controller = CarouselController();
+
+  void _addToCart(ProductItemModel item) {
+    setState(() {
+      if (!cartItems.any((cartItem) => cartItem.title == item.title)) {
+        cartItems.add(item);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${item.title} added to cart'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${item.title} is already in the cart'),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +58,31 @@ class _CarouselBuilderWidgetState extends State<CarouselBuilderWidget> {
               });
             },
           ),
-          itemCount: 4,
+          itemCount: widget.productItemModel.length,
           itemBuilder: (context, index, realIndex) {
-            return const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: ProductItemWidget(),
+            final model = widget.productItemModel[index];
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ProductItemWidget(
+                  image: model.image,
+                  title: model.title,
+                  subTitle: model.subTitle,
+                  price: model.price,
+                  onPressed: () {
+                    ProductItemModel newItem = ProductItemModel(
+                      image: model.image,
+                      title: model.title,
+                      subTitle: model.subTitle,
+                      price: model.price,
+                    );
+                    _addToCart(newItem);
+                  }),
             );
           },
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(3, (index) {
+          children: List.generate(5, (index) {
             return GestureDetector(
               onTap: () => _controller.animateToPage(index),
               child: Container(

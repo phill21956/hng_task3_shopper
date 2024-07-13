@@ -3,9 +3,19 @@ import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  const ProductItemWidget({
+   ProductItemWidget({
     super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    required this.price,
+    this.onPressed,
   });
+  final String image;
+  final String title;
+  final String subTitle;
+  final String price;
+  void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +28,16 @@ class ProductItemWidget extends StatelessWidget {
             width: 185,
             color: const Color(0xffededed),
             child: Image.asset(
-              'assets/gamepad.png',
+              image,
             )),
         const SizedBox(height: 10),
-        const Text(
-          'Apple IPhone 14 Pro',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+        Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
         ),
-        const Text(
-          '6GB RAM + 128GB ROM',
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
+        Text(
+          subTitle,
+          style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
         ),
         CustomRatingBar(
             alignment: Alignment.bottomLeft,
@@ -35,7 +45,7 @@ class ProductItemWidget extends StatelessWidget {
             initialRating: 5,
             color: colorsClass.ratingColor),
         Text(
-          '₦12,000',
+          price,
           style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,
@@ -43,7 +53,7 @@ class ProductItemWidget extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               side: BorderSide(color: colorsClass.reddishColor)),

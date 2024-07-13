@@ -55,8 +55,7 @@ class BottomNavScreenState extends State<BottomNavScreen> {
           child: Card(
             color: colorsClass.darkColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
-            ),
+                borderRadius: BorderRadius.circular(30.0)),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: BottomNavigationBar(

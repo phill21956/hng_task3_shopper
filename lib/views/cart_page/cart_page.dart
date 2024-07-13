@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/check_out_page/check_out_page.dart';
+import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
+
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  void _removeCart(ProductItemModel item) {
+    setState(() {
+      cartItems.remove(item);
+    });
+  }
+
+  void _incrementQuantity(int index) {
+    setState(() {
+      cartItems[index].quantity++;
+    });
+  }
+
+  void _decrementQuantity(int index) {
+    setState(() {
+      if (cartItems[index].quantity > 1) {
+        cartItems[index].quantity--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,248 +52,286 @@ class CartPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: SizedBox(
-                        height: 138,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 10),
-                                child: Container(
-                                    height: 78,
-                                    width: 60,
-                                    color: const Color(0xffededed),
-                                    child: Image.asset(
-                                      'assets/gamepad.png',
-                                    )),
+      body: cartItems.isEmpty
+          ? const Center(
+              child: Text(
+                'No Item in Cart',
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          final items = cartItems[index];
+                          return Card(
+                            child: SizedBox(
+                              height: 138,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: Container(
+                                          height: 78,
+                                          width: 60,
+                                          color: const Color(0xffededed),
+                                          child: Image.asset(
+                                            items.image,
+                                          )),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          items.title,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          items.subTitle,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10),
+                                          child: SizedBox(
+                                            width: 88,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () =>
+                                                      _decrementQuantity(index),
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5)),
+                                                      child: const Icon(
+                                                          Icons.remove)),
+                                                ),
+                                                Text('${items.quantity}'),
+                                                InkWell(
+                                                  onTap: () =>
+                                                      _incrementQuantity(index),
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5)),
+                                                      child: const Icon(
+                                                          Icons.add)),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () => _removeCart(items),
+                                            icon: const Icon(Icons.delete,
+                                                color: Colors.red)),
+                                        Text(
+                                          items.price,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                            ),
+                          );
+                        }),
+                    Card(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text(
+                                'Shopping Summary',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 16),
+                              ),
+                              const SizedBox(height: 10),
+                              const Text(
+                                'Discount Code',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                    color: Colors.grey),
+                              ),
+                              Row(
                                 children: [
-                                  const Text(
-                                    'Apple IPhone 14 Pro',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12),
-                                  ),
-                                  const Text(
-                                    '6GB RAM + 128GB ROM',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: SizedBox(
-                                      width: 88,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              child: const Icon(Icons.remove)),
-                                          const Text('1'),
-                                          Container(
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5)),
-                                              child: const Icon(Icons.add))
-                                        ],
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(),
+                                      ),
+                                      child: const TextField(
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none),
                                       ),
                                     ),
-                                  )
+                                  ),
+                                  const SizedBox(width: 20),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            colorsClass.reddishColor),
+                                    child: const Text('Apply'),
+                                  ),
                                 ],
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
+                              const SizedBox(height: 20),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.delete_outline)),
+                                  Text(
+                                    'Sub-Total',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        color: colorsClass.lightGreyColor),
+                                  ),
                                   const Text(
                                     '₦12,000',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14,
-                                    ),
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
                                   ),
                                 ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Delivery Fee',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        color: colorsClass.lightGreyColor),
+                                  ),
+                                  const Text(
+                                    '₦12,000',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Discount Amount',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        color: colorsClass.lightGreyColor),
+                                  ),
+                                  const Text(
+                                    '₦12,000',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
+                              Divider(color: colorsClass.lightGreyColor),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Total Amount',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                        color: colorsClass.lightGreyColor),
+                                  ),
+                                  const Text(
+                                    '₦12,000',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                width: 306,
+                                height: 44,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => CheckOutPage(),
+                                    ));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      shape: BeveledRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      backgroundColor:
+                                          colorsClass.reddishColor),
+                                  child: const Text(
+                                    'Checkout',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
                               )
                             ],
                           ),
                         ),
                       ),
-                    );
-                  }),
-              Card(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 20, horizontal: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Shopping Summary',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Discount Code',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                              color: Colors.grey),
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(),
-                                ),
-                                child: const TextField(
-                                  decoration:
-                                      InputDecoration(border: InputBorder.none),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: colorsClass.reddishColor),
-                              child: const Text('Apply'),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Sub-Total',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: colorsClass.lightGreyColor),
-                            ),
-                            const Text(
-                              '₦12,000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Delivery Fee',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: colorsClass.lightGreyColor),
-                            ),
-                            const Text(
-                              '₦12,000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Discount Amount',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: colorsClass.lightGreyColor),
-                            ),
-                            const Text(
-                              '₦12,000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Divider(color: colorsClass.lightGreyColor),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Total Amount',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  color: colorsClass.lightGreyColor),
-                            ),
-                            const Text(
-                              '₦12,000',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 14),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          width: 306,
-                          height: 44,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CheckOutPage(),
-                              ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                shape: BeveledRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                backgroundColor: colorsClass.reddishColor),
-                            child: const Text(
-                              'Checkout',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        )
-                      ],
                     ),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
