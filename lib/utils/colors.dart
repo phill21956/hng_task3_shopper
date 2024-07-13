@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ColorsClass {
   Color reddishColor = const Color(0xffFF7F7D);
@@ -13,3 +14,10 @@ class ColorsClass {
 }
 
 ColorsClass get colorsClass => ColorsClass();
+
+
+extension MoneyFotmatter on dynamic {
+  String _moneyFormatter() => NumberFormat('#,##0').format(this);
+
+  String get formatMoney => _moneyFormatter();
+}

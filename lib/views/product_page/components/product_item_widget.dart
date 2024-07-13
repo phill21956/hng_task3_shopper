@@ -3,7 +3,7 @@ import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductItemWidget extends StatelessWidget {
-   ProductItemWidget({
+  ProductItemWidget({
     super.key,
     required this.image,
     required this.title,
@@ -14,7 +14,7 @@ class ProductItemWidget extends StatelessWidget {
   final String image;
   final String title;
   final String subTitle;
-  final String price;
+  final double price;
   void Function()? onPressed;
 
   @override
@@ -45,7 +45,7 @@ class ProductItemWidget extends StatelessWidget {
             initialRating: 5,
             color: colorsClass.ratingColor),
         Text(
-          price,
+          '₦ ${price.formatMoney}',
           style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,

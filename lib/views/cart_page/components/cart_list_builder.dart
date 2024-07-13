@@ -90,7 +90,7 @@ class _CartListBuilderState extends State<CartListBuilder> {
                             onPressed: () => _removeCart(items),
                             icon: const Icon(Icons.delete, color: Colors.red)),
                         Text(
-                          items.price,
+                          '₦ ${items.price}',
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,

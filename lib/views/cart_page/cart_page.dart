@@ -12,6 +12,8 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  final double deliveryFee = 2000;
+  final double discountAmt = 1000;
   void _removeCart(ProductItemModel item) {
     setState(() {
       cartItems.remove(item);
@@ -30,6 +32,22 @@ class _CartPageState extends State<CartPage> {
         cartItems[index].quantity--;
       }
     });
+  }
+
+  double getSubTotalAmount() {
+    double total = 0.0;
+    for (var item in cartItems) {
+      total += item.totalPrice;
+    }
+    return total;
+  }
+
+  double getTotalAmount() {
+    double total = 0.0;
+
+    total = getSubTotalAmount() + deliveryFee - discountAmt;
+
+    return total;
   }
 
   @override
@@ -158,11 +176,10 @@ class _CartPageState extends State<CartPage> {
                                             icon: const Icon(Icons.delete,
                                                 color: Colors.red)),
                                         Text(
-                                          items.price,
+                                          '₦ ${items.totalPrice.formatMoney}',
                                           style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 14,
-                                          ),
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14),
                                         ),
                                       ],
                                     )
@@ -231,9 +248,9 @@ class _CartPageState extends State<CartPage> {
                                         fontSize: 14,
                                         color: colorsClass.lightGreyColor),
                                   ),
-                                  const Text(
-                                    '₦12,000',
-                                    style: TextStyle(
+                                  Text(
+                                    '₦${getSubTotalAmount().formatMoney}',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14),
                                   ),
@@ -250,9 +267,9 @@ class _CartPageState extends State<CartPage> {
                                         fontSize: 14,
                                         color: colorsClass.lightGreyColor),
                                   ),
-                                  const Text(
-                                    '₦12,000',
-                                    style: TextStyle(
+                                  Text(
+                                    '₦${deliveryFee.formatMoney}',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14),
                                   ),
@@ -269,9 +286,9 @@ class _CartPageState extends State<CartPage> {
                                         fontSize: 14,
                                         color: colorsClass.lightGreyColor),
                                   ),
-                                  const Text(
-                                    '₦12,000',
-                                    style: TextStyle(
+                                  Text(
+                                    '₦${discountAmt.formatMoney}',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14),
                                   ),
@@ -290,9 +307,9 @@ class _CartPageState extends State<CartPage> {
                                         fontSize: 14,
                                         color: colorsClass.lightGreyColor),
                                   ),
-                                  const Text(
-                                    '₦12,000',
-                                    style: TextStyle(
+                                  Text(
+                                    '₦${getTotalAmount().formatMoney}',
+                                    style: const TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14),
                                   ),
