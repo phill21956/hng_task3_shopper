@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3_shopper/models/product_item_model.dart';
-import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
+import '../../../controllers/product_page_controller.dart';
 
 class CartListBuilder extends StatefulWidget {
   const CartListBuilder({

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/payment_page/payment_success_page.dart';
-import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
+
+import '../../controllers/product_page_controller.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});

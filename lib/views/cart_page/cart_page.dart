@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/check_out_page/check_out_page.dart';
-import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
+import '../../controllers/product_page_controller.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});

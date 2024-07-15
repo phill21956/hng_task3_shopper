@@ -10,7 +10,7 @@ class PaymentSuccessPage extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const BottomNavScreen(),
+          builder: (context) => BottomNavScreen(),
         ));
         return true;
       },

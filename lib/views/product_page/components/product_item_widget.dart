@@ -3,7 +3,7 @@ import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ProductItemWidget extends StatelessWidget {
-  ProductItemWidget({
+  const ProductItemWidget({
     super.key,
     required this.image,
     required this.title,
@@ -15,7 +15,7 @@ class ProductItemWidget extends StatelessWidget {
   final String title;
   final String subTitle;
   final double price;
-  void Function()? onPressed;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,7 @@ class ProductItemWidget extends StatelessWidget {
             height: 184,
             width: 185,
             color: const Color(0xffededed),
-            child: Image.asset(
-              image,
-            )),
+            child: Image.asset(image)),
         const SizedBox(height: 10),
         Text(
           title,

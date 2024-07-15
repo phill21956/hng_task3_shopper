@@ -1,55 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hng_task3_shopper/models/bottom_menue_model.dart';
+import 'package:get/get.dart';
+import 'package:hng_task3_shopper/controllers/nav_controller.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/cart_page/cart_page.dart';
 import 'package:hng_task3_shopper/views/product_page/product_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class BottomNavScreen extends StatefulWidget {
-  const BottomNavScreen({super.key});
+class BottomNavScreen extends StatelessWidget {
+  BottomNavScreen({super.key});
 
-  @override
-  BottomNavScreenState createState() => BottomNavScreenState();
-}
-
-class BottomNavScreenState extends State<BottomNavScreen> {
-  int _currentIndex = 0;
   final List<Widget> _children = [
     const ProductPage(),
     Container(),
     const CartPage(),
   ];
 
-  void onTappedBar(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  List<BottomMenuModel> bottomMenuList = [
-    BottomMenuModel(
-      icon: 'assets/homeIcon.svg',
-      title: "Home",
-    ),
-    BottomMenuModel(
-      icon: 'assets/shoppingIcon.svg',
-      title: "Chat",
-    ),
-    BottomMenuModel(
-      icon: 'assets/checkoutIcon.svg',
-      title: "Profile",
-    )
-  ];
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NavController());
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();
         return true;
       },
       child: Scaffold(
-        body: _children[_currentIndex],
+        body: _children[controller.currentIndex.value],
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Card(
@@ -64,7 +40,7 @@ class BottomNavScreenState extends State<BottomNavScreen> {
                 showUnselectedLabels: false,
                 selectedFontSize: 0,
                 elevation: 0,
-                currentIndex: _currentIndex,
+                currentIndex: controller.currentIndex.value,
                 type: BottomNavigationBarType.fixed,
                 items: List.generate(bottomMenuList.length, (index) {
                   return BottomNavigationBarItem(
@@ -89,9 +65,7 @@ class BottomNavScreenState extends State<BottomNavScreen> {
                     label: '',
                   );
                 }),
-                onTap: (index) {
-                  onTappedBar(index);
-                },
+                onTap: (index) => controller.onTappedBar(index),
               ),
             ),
           ),

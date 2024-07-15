@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
 import 'package:hng_task3_shopper/views/product_page/components/home_banner_widget.dart';
+import 'package:hng_task3_shopper/widgets/custom_appbar_widget.dart';
+import 'components/product_title_widget.dart';
 
 class ProductPage extends StatelessWidget {
   const ProductPage({super.key});
@@ -11,20 +13,7 @@ class ProductPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              'assets/Malltiverse.png',
-              width: 90,
-            ),
-            const SizedBox(width: 20),
-            const Text(
-              'Product List',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
+        title: const CustomAppBarHeader(title: 'Product List'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -34,22 +23,13 @@ class ProductPage extends StatelessWidget {
             children: [
               const HomeBannerWidget(),
               const SizedBox(height: 20),
-              const Text(
-                'Tech Gadget',
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
+              const ProductTitleWidget(title: 'Tech Gadget'),
               CarouselBuilderWidget(productItemModel: techGadgetList),
               const SizedBox(height: 20),
-              const Text(
-                "Men’s Fashion",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
+              const ProductTitleWidget(title: "Men’s Fashion"),
               CarouselBuilderWidget(productItemModel: menFashionList),
               const SizedBox(height: 20),
-              const Text(
-                "Women’s Fashion",
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
+              const ProductTitleWidget(title: "Women’s Fashion"),
               CarouselBuilderWidget(productItemModel: womenFashionList),
             ],
           ),
