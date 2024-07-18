@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3_shopper/models/product_item_model.dart';
+import 'package:get/get.dart';
+import 'package:hng_task3_shopper/controllers/product_page_controller.dart';
 import 'package:hng_task3_shopper/views/product_page/components/carousel_build.dart';
 import 'package:hng_task3_shopper/views/product_page/components/home_banner_widget.dart';
 import 'package:hng_task3_shopper/widgets/custom_appbar_widget.dart';
@@ -10,6 +11,7 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ProductPageController());
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -24,13 +26,16 @@ class ProductPage extends StatelessWidget {
               const HomeBannerWidget(),
               const SizedBox(height: 20),
               const ProductTitleWidget(title: 'Tech Gadget'),
-              CarouselBuilderWidget(productItemModel: techGadgetList),
+              CarouselBuilderWidget(
+                  itemModel: controller.getTechProduct()),
               const SizedBox(height: 20),
               const ProductTitleWidget(title: "Men’s Fashion"),
-              CarouselBuilderWidget(productItemModel: menFashionList),
+              CarouselBuilderWidget(
+                  itemModel: controller.getMenProduct()),
               const SizedBox(height: 20),
               const ProductTitleWidget(title: "Women’s Fashion"),
-              CarouselBuilderWidget(productItemModel: womenFashionList),
+              CarouselBuilderWidget(
+                  itemModel: controller.getWomenProduct()),
             ],
           ),
         ),

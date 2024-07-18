@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3_shopper/utils/colors.dart';
-import 'package:hng_task3_shopper/views/payment_page/payment_success_page.dart';
-
+import 'package:get/get.dart';
+import 'package:hng_task3_shopper/controllers/payment_controller.dart';
 import '../../controllers/product_page_controller.dart';
+import '../../widgets/custom_button_widget.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(PaymentController());
+    controller.cardController.value.clear();
+    controller.cvvController.value.clear();
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -46,8 +49,13 @@ class PaymentPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(),
                 ),
-                child: const TextField(
-                  decoration: InputDecoration(border: InputBorder.none),
+                child: TextField(
+                  controller: controller.cardController.value,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                      hintText: 'Enter 16 digit card number',
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10)),
                 ),
               ),
               const SizedBox(height: 20),
@@ -93,9 +101,14 @@ class PaymentPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(),
                           ),
-                          child: const TextField(
-                            decoration:
-                                InputDecoration(border: InputBorder.none),
+                          child: TextField(
+                            controller: controller.cvvController.value,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Enter your 3 digit CVV',
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 5)),
                           ),
                         ),
                       ],
@@ -104,29 +117,12 @@ class PaymentPage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 40),
-              Center(
-                child: SizedBox(
-                  width: 306,
-                  height: 44,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      cartItems.clear();
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PaymentSuccessPage(),
-                      ));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        shape: BeveledRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        backgroundColor: colorsClass.reddishColor),
-                    child: const Text(
-                      'Make Payment',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-              )
+              CustomButtonWidget(
+                  title: 'Make Payment',
+                  onPressed: () {
+                    cartItems.clear();
+                    controller.onCheckout();
+                  })
             ],
           ),
         ),

@@ -6,6 +6,7 @@ class ColorsClass {
   Color darkColor = const Color(0xff2A2A2A);
   Color ratingColor = const Color(0xffFFC657);
   Color lightGreyColor = const Color(0XFF2a2a2a);
+  Color greyColor = const Color(0XFFE5E5E5);
 
   List<Color> loadingGradient = [
     Colors.grey.withOpacity(1),
@@ -14,7 +15,6 @@ class ColorsClass {
 }
 
 ColorsClass get colorsClass => ColorsClass();
-
 
 extension MoneyFotmatter on dynamic {
   String _moneyFormatter() => NumberFormat('#,##0').format(this);

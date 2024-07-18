@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hng_task3_shopper/utils/shared_pref.dart';
 import 'package:hng_task3_shopper/views/nav_bar.dart';
 
-void main() {
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+ await PrefUtils.initialize();
   runApp(const MyApp());
 }
 

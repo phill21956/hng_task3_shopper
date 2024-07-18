@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3_shopper/models/product_item_model.dart';
-import '../../../controllers/product_page_controller.dart';
+import 'package:get/get.dart';
+import 'package:hng_task3_shopper/controllers/cart_controller.dart';
+import 'package:hng_task3_shopper/controllers/product_page_controller.dart';
+import 'package:hng_task3_shopper/utils/colors.dart';
 
-class CartListBuilder extends StatefulWidget {
-  const CartListBuilder({
-    super.key,
-  });
-
-  @override
-  State<CartListBuilder> createState() => _CartListBuilderState();
-}
-
-class _CartListBuilderState extends State<CartListBuilder> {
-  void _removeCart(ProductItemModel item) {
-    setState(() {
-      cartItems.remove(item);
-    });
-  }
+class CartListBuilder extends StatelessWidget {
+  const CartListBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    final controller = Get.put(CartPageController());
+    return Obx(() => ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: cartItems.length,
@@ -37,12 +27,13 @@ class _CartListBuilderState extends State<CartListBuilder> {
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Container(
-                          height: 78,
-                          width: 60,
-                          color: const Color(0xffededed),
-                          child: Image.asset(
-                            items.image,
-                          )),
+                        height: 78,
+                        width: 60,
+                        color: const Color(0xffededed),
+                        child: items.image.isNotEmpty
+                            ? Image.network(items.image)
+                            : Image.asset('assets/empty.png'),
+                      ),
                     ),
                     Column(
                       mainAxisSize: MainAxisSize.min,
@@ -66,17 +57,27 @@ class _CartListBuilderState extends State<CartListBuilder> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: const Icon(Icons.remove)),
-                                const Text('1'),
-                                Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: const Icon(Icons.add))
+                                InkWell(
+                                  onTap: () =>
+                                      controller.decrementQuantity(index),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: const Icon(Icons.remove)),
+                                ),
+                                Text('${items.quantity}'),
+                                InkWell(
+                                  onTap: () =>
+                                      controller.incrementQuantity(index),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: const Icon(Icons.add)),
+                                )
                               ],
                             ),
                           ),
@@ -87,14 +88,12 @@ class _CartListBuilderState extends State<CartListBuilder> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                            onPressed: () => _removeCart(items),
+                            onPressed: () => controller.removeCart(items),
                             icon: const Icon(Icons.delete, color: Colors.red)),
                         Text(
-                          '₦ ${items.price}',
+                          '₦ ${items.totalPrice.formatMoney}',
                           style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                          ),
+                              fontWeight: FontWeight.w600, fontSize: 14),
                         ),
                       ],
                     )
@@ -103,6 +102,6 @@ class _CartListBuilderState extends State<CartListBuilder> {
               ),
             ),
           );
-        });
+        }));
   }
 }

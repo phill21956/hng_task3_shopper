@@ -9,12 +9,13 @@ class ProductItemWidget extends StatelessWidget {
     required this.title,
     required this.subTitle,
     required this.price,
-    this.onPressed,
+    this.onPressed, this.onTap,
   });
-  final String image;
+  final String? image;
   final String title;
   final String subTitle;
   final double price;
+  final Function()? onTap;
   final void Function()? onPressed;
 
   @override
@@ -23,31 +24,45 @@ class ProductItemWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-            height: 184,
-            width: 185,
-            color: const Color(0xffededed),
-            child: Image.asset(image)),
-        const SizedBox(height: 10),
-        Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-        ),
-        Text(
-          subTitle,
-          style: const TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
-        ),
-        CustomRatingBar(
-            alignment: Alignment.bottomLeft,
-            ignoreGestures: true,
-            initialRating: 5,
-            color: colorsClass.ratingColor),
-        Text(
-          '₦ ${price.formatMoney}',
-          style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: colorsClass.reddishColor),
+        InkWell(
+          onTap: onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: 184,
+                width: 185,
+                color: const Color(0xffededed),
+                child: image != null
+                    ? Image.network(image ?? '')
+                    : Image.asset('assets/empty.png'),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                title,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+              ),
+              Text(
+                subTitle,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 12),
+              ),
+              CustomRatingBar(
+                  alignment: Alignment.bottomLeft,
+                  ignoreGestures: true,
+                  initialRating: 5,
+                  color: colorsClass.ratingColor),
+              Text(
+                '₦ ${price.formatMoney}',
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: colorsClass.reddishColor),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 5),
         ElevatedButton(

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/nav_bar.dart';
+
+import '../../controllers/nav_controller.dart';
 
 class PaymentSuccessPage extends StatelessWidget {
   const PaymentSuccessPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NavController());
     return WillPopScope(
       onWillPop: () async {
+        controller.currentIndex.value = 0;
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => BottomNavScreen(),
         ));
@@ -67,6 +72,7 @@ class PaymentSuccessPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
+                        controller.currentIndex.value = 0;
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => BottomNavScreen(),
                         ));

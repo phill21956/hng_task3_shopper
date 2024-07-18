@@ -15,7 +15,7 @@ List<BottomMenuModel> bottomMenuList = [
     title: "Home",
   ),
   BottomMenuModel(
-    icon: 'assets/shoppingIcon.svg',
+    icon: 'assets/order.svg',
     title: "Chat",
   ),
   BottomMenuModel(
