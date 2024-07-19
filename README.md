@@ -1,6 +1,9 @@
 
-## Task:
+## About Project:
 Malltiverse is a simple mobile E-commerce application that allows users to browse through products, add them to a cart, proceed to checkout, and view order history.
+
+## Task:
+Updated the application, including order history, order details, and the over all ordering and check out experience.
 
 ## Navigating the App :
 Home Screen: Browse through the list of products.
