@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:hng_task3_shopper/models/history_model.dart';
-import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefUtils {

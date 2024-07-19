@@ -20,6 +20,6 @@ List<BottomMenuModel> bottomMenuList = [
   ),
   BottomMenuModel(
     icon: 'assets/checkoutIcon.svg',
-    title: "Profile",
+    title: "Cart",
   )
 ];

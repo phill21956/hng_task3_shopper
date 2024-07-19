@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hng_task3_shopper/models/get_products_model.dart';
 import 'package:hng_task3_shopper/models/product_item_model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hng_task3_shopper/utils/colors.dart';
 
 import '../network/api_call.dart';
 
@@ -63,7 +64,7 @@ class ProductPageController extends GetxController {
     } else {
       Get.snackbar('', '',
           duration: const Duration(seconds: 1),
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
           titleText: const Text(
             'Attention',
             textAlign: TextAlign.center,

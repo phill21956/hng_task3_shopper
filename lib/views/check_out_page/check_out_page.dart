@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hng_task3_shopper/controllers/checkout_controller.dart';
-import 'package:hng_task3_shopper/utils/toast.dart';
 import 'package:hng_task3_shopper/views/check_out_page/components/delivery_widget.dart';
 import 'package:hng_task3_shopper/views/check_out_page/components/pick_up_widget.dart';
-import 'package:hng_task3_shopper/views/payment_page/payment_page.dart';
 import 'package:hng_task3_shopper/widgets/custom_appbar_widget.dart';
 import 'package:hng_task3_shopper/widgets/custom_button_widget.dart';
 

@@ -46,7 +46,7 @@ class CartPageController extends GetxController {
     final list = OrderHistoryModel(orderItem: cartItems);
     historyList.insert(0, list);
 
-    if (historyList.length > 15) {
+    if (historyList.length > 10) {
       historyList.removeRange(15, historyList.length);
     }
     await PrefUtils.saveCartOrder('HISTORY', historyList);

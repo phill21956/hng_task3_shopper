@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hng_task3_shopper/controllers/nav_controller.dart';
 import 'package:hng_task3_shopper/controllers/product_page_controller.dart';
+import 'package:hng_task3_shopper/models/bottom_menue_model.dart';
 import 'package:hng_task3_shopper/utils/colors.dart';
 import 'package:hng_task3_shopper/views/cart_page/cart_page.dart';
 import 'package:hng_task3_shopper/views/history_page/history_page.dart';
@@ -14,14 +15,13 @@ class BottomNavScreen extends StatelessWidget {
 
   final List<Widget> _children = [
     const ProductPage(),
-     HistoryPage(),
+    const HistoryPage(),
     const CartPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavController());
-
     return WillPopScope(
         onWillPop: () async {
           SystemNavigator.pop();
@@ -49,12 +49,9 @@ class BottomNavScreen extends StatelessWidget {
                         currentIndex: controller.currentIndex.value,
                         type: BottomNavigationBarType.fixed,
                         items: List.generate(bottomMenuList.length, (index) {
+                          final menuList = bottomMenuList[index];
                           return BottomNavigationBarItem(
-                            icon: SvgPicture.asset(
-                              bottomMenuList[index].icon,
-                              fit: BoxFit.cover,
-                              color: Colors.white.withOpacity(1),
-                            ),
+                            icon: NavBarIconWidget(menuList: menuList),
                             activeIcon: Container(
                               decoration: BoxDecoration(
                                 color: colorsClass.reddishColor,
@@ -62,10 +59,7 @@ class BottomNavScreen extends StatelessWidget {
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
-                                child: SvgPicture.asset(
-                                  bottomMenuList[index].icon,
-                                  color: Colors.black.withOpacity(1),
-                                ),
+                                child: NavBarIconWidget(menuList: menuList),
                               ),
                             ),
                             label: '',
@@ -76,6 +70,28 @@ class BottomNavScreen extends StatelessWidget {
                     )),
               ),
             ),
+          ),
+        ));
+  }
+}
+
+class NavBarIconWidget extends StatelessWidget {
+  const NavBarIconWidget({
+    super.key,
+    required this.menuList,
+  });
+
+  final BottomMenuModel menuList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => Badge(
+          isLabelVisible: menuList.title == "Cart" && cartItems.isNotEmpty,
+          label: Text('${cartItems.length}'),
+          child: SvgPicture.asset(
+            menuList.icon,
+            fit: BoxFit.cover,
+            color: Colors.white.withOpacity(1),
           ),
         ));
   }

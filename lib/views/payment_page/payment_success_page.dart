@@ -73,6 +73,7 @@ class PaymentSuccessPage extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         controller.currentIndex.value = 0;
+                        //PrefUtils.clearPreferencesData();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => BottomNavScreen(),
                         ));
