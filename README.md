@@ -1,13 +1,37 @@
-# hng_task3_shopper
-
 
 ## Task:
-Pixel Perfect Implementation of Timbu Shop Designs from designers.
-## Objectives: 
-Find your assigned Timbu Shop design and do a pixel perfect design implementation of that design App on your app that implemented the Timbu API.
-## Requirements:
-pixel perfect implementation of the picked Timbu shop design.
-Proper UI state management and handle errors properly.
+Malltiverse is a simple mobile E-commerce application that allows users to browse through products, add them to a cart, proceed to checkout, and view order history.
+
+## Navigating the App :
+Home Screen: Browse through the list of products.
+Product details: view product details.
+Cart: Add products to your cart and view them in the cart page.
+Checkout: Proceed to checkout.
+Payment: Add payment informations and proceed to a success message page.
+Order history: veiw orders history.
+Order history details: view order history details.
+## Set up: 
+1. Clone the repository
+2. Install Flutter dependencies "flutter pub get"
+3. Run the app "flutter run"
+
+## Features:
+Browse products from various categories
+View product details including images, descriptions, and prices
+Add products to the cart
+Manage the shopping cart
+Place orders
+Product listing
+product details page
+cart listing
+Add products to cart
+Remove products from cart
+View total price of products in cart
+Checkout process
+select pickup location or set delivery address
+Enter card details for payment
+Order history
+Order history details
 
 - [A link to get the hng_task3_app build apk](https://drive.google.com/file/d/1bupwLtvN7o9wPXiyWE59w0ucJlMz6OZ-/view?usp=sharing)
 
