@@ -4,11 +4,17 @@ Malltiverse is a simple mobile E-commerce application that allows users to brows
 
 ## Navigating the App :
 Home Screen: Browse through the list of products.
+
 Product details: view product details.
+
 Cart: Add products to your cart and view them in the cart page.
+
 Checkout: Proceed to checkout.
+
 Payment: Add payment informations and proceed to a success message page.
+
 Order history: veiw orders history.
+
 Order history details: view order history details.
 
 ## Set up: 
